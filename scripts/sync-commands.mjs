@@ -76,7 +76,8 @@ async function loadSource() {
             ref: "local working tree",
         };
 
-    const ref = validateRef(process.env.DOTBENTO_REF ?? (await latestStableRef()));
+    const requestedRef = process.env.DOTBENTO_REF?.trim();
+    const ref = validateRef(requestedRef || (await latestStableRef()));
     const url = `https://raw.githubusercontent.com/thebentobot/dotBento/${ref}/docs/slash-commands.json`;
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Could not fetch manifest for ${ref} (${response.status})`);
