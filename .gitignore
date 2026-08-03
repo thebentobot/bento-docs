@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.testagent/
+src/generated/
+src/content/docs/reference/
+.env

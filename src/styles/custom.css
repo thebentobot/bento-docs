@@ -1,0 +1,157 @@
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/inter-v18-latin-regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/fonts/inter-v18-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("/fonts/inter-v18-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/inter-v18-latin-700.woff2") format("woff2");
+}
+
+:root,
+::backdrop {
+    --sl-font: "Inter";
+
+    /* bento-web: black/Zinc dark surfaces with yellow and amber highlights. */
+    --sl-color-white: #fafafa;
+    --sl-color-gray-1: #f4f4f5;
+    --sl-color-gray-2: #d4d4d8;
+    --sl-color-gray-3: #a1a1aa;
+    --sl-color-gray-4: #71717a;
+    --sl-color-gray-5: #3f3f46;
+    --sl-color-gray-6: #18181b;
+    --sl-color-black: #000000;
+    --sl-color-accent-low: #422006;
+    --sl-color-accent: #facc15;
+    --sl-color-accent-high: #fef08a;
+    --sl-color-text: var(--sl-color-gray-2);
+    --sl-color-text-accent: var(--sl-color-accent-high);
+    --sl-color-text-invert: #18181b;
+    --sl-color-bg: #000000;
+    --sl-color-bg-nav: #09090b;
+    --sl-color-bg-sidebar: #09090b;
+    --sl-color-bg-inline-code: #27272a;
+    --sl-color-bg-accent: var(--sl-color-accent);
+    --sl-color-hairline-light: #3f3f46;
+    --sl-color-hairline: #18181b;
+    --sl-color-hairline-shade: #000000;
+}
+
+:root[data-theme="light"],
+[data-theme="light"] ::backdrop {
+    /* bento-web: white/Zinc light surfaces with readable yellow accents. */
+    --sl-color-white: #18181b;
+    --sl-color-gray-1: #27272a;
+    --sl-color-gray-2: #3f3f46;
+    --sl-color-gray-3: #52525b;
+    --sl-color-gray-4: #71717a;
+    --sl-color-gray-5: #d4d4d8;
+    --sl-color-gray-6: #f4f4f5;
+    --sl-color-gray-7: #fafafa;
+    --sl-color-black: #ffffff;
+    --sl-color-accent-high: #854d0e;
+    --sl-color-accent: #ca8a04;
+    --sl-color-accent-low: #fef9c3;
+    --sl-color-text: var(--sl-color-gray-2);
+    --sl-color-text-accent: #a16207;
+    --sl-color-text-invert: #18181b;
+    --sl-color-bg: #ffffff;
+    --sl-color-bg-nav: #fafafa;
+    --sl-color-bg-sidebar: #ffffff;
+    --sl-color-bg-inline-code: #f4f4f5;
+    --sl-color-bg-accent: #facc15;
+    --sl-color-hairline-light: #f4f4f5;
+    --sl-color-hairline: #e4e4e7;
+    --sl-color-hairline-shade: #f4f4f5;
+}
+
+.site-title img,
+.hero > img {
+    border-radius: 9999px;
+}
+
+.hero > img {
+    /* Follow the transparent artwork instead of drawing a ring around its box. */
+    box-shadow: none;
+    filter: drop-shadow(0 14px 28px rgb(251 191 36 / 24%));
+}
+
+.site-title,
+.hero h1 {
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.sl-link-button.primary {
+    border-color: #facc15;
+    background: #facc15;
+    color: #18181b;
+}
+
+.sl-link-button.primary:hover {
+    border-color: #eab308;
+    background: #eab308;
+    color: #18181b;
+}
+
+.command-reference {
+    margin: 0.75rem 0 2.5rem;
+}
+.command-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.75rem 0;
+}
+.command-badges span {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.8rem;
+}
+.option-table {
+    overflow-x: auto;
+}
+.option-table table {
+    width: 100%;
+    font-size: 0.9rem;
+}
+.option-table small {
+    display: block;
+    color: var(--sl-color-gray-3);
+}
+.command-note {
+    border-left: 3px solid var(--sl-color-accent);
+    padding-left: 1rem;
+    margin-top: 1rem;
+}
+.discord-example {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+}
+.discord-example discord-messages {
+    min-width: 320px;
+}

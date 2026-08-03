@@ -1,0 +1,75 @@
+---
+interface Props {
+    kind: "profile" | "lastfm";
+}
+const { kind } = Astro.props;
+---
+
+<div class="discord-example">
+    <discord-messages>
+        <discord-message
+            author="Bento Bot"
+            avatar="/bento_discord.webp"
+            role-color="#facc15"
+            bot
+            verified
+        >
+            <discord-command
+                slot="reply"
+                author={kind === "profile" ? "Fiji Spring Water" : "Lewis"}
+                avatar={kind === "profile" ? "/fiji_discord.webp" : "/lewis_discord.webp"}
+                command={kind === "profile" ? "profile user" : "lastfm nowplaying"}
+            ></discord-command>
+            {
+                kind === "profile" ? (
+                    <discord-image-attachment
+                        slot="attachments"
+                        url="/Fiji_Spring_Water_profile.webp"
+                        width="480"
+                        height="320"
+                        alt="Example Bento profile card"
+                    />
+                ) : (
+                    <discord-embed
+                        slot="embeds"
+                        color="#e4141e"
+                        author-name="Lewis"
+                        author-image="/lewis_discord.webp"
+                        thumbnail="/brat_fm.webp"
+                    >
+                        <discord-embed-description slot="description">
+                            Now Playing
+                            <>
+                                <br />
+                                <strong>Charli XCX</strong>
+                            </>{" "}
+                            — Talk talk
+                            <br />
+                            From the album <strong>BRAT</strong>
+                        </discord-embed-description>
+                        <discord-embed-footer
+                            slot="footer"
+                            footer-image="/lastfm_avatar_twitter.52a5d69a85ac.webp"
+                        >
+                            Powered by last.fm
+                        </discord-embed-footer>
+                    </discord-embed>
+                )
+            }
+        </discord-message>
+    </discord-messages>
+</div>
+
+<script>
+    window.$discordMessage = { profiles: {} };
+    import("@skyra/discord-components-core");
+    const applyTheme = () =>
+        document.documentElement.dataset.theme === "dark"
+            ? document.body.classList.add("discord-dark")
+            : document.body.classList.remove("discord-dark");
+    applyTheme();
+    new MutationObserver(applyTheme).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+    });
+</script>

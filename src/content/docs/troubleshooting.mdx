@@ -1,0 +1,18 @@
+---
+title: Troubleshooting
+description: Common fixes when a Bento slash command is unavailable or fails.
+---
+
+## A command is missing
+
+Check that Bento was invited with the `applications.commands` scope, that the bot can access the channel, and that a server administrator has not disabled the command.
+
+## A settings command is denied
+
+`/server settings` is server-only and requires **Manage Server**. Personal settings are under `/user settings` and do not require that server permission.
+
+## Last.fm has no user
+
+Run `/lastfm save` first and check the username carefully. Use `/lastfm delete` before saving a different account if necessary.
+
+For unresolved problems, visit the [support server](https://discord.gg/dd68WwP).

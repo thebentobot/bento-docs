@@ -1,0 +1,32 @@
+---
+title: Bento documentation
+description: Learn how to use Bento's Discord slash commands and settings.
+template: splash
+hero:
+    tagline: Slash commands, profile setup, Last.fm, and server configuration.
+    image:
+        file: ../../assets/bento-logo.webp
+        alt: Bento Bot logo
+    actions:
+        - text: Get started
+          link: /getting-started/
+          icon: right-arrow
+          variant: primary
+        - text: Browse commands
+          link: /reference/
+          icon: open-book
+        - text: Invite Bento
+          link: https://discord.com/api/oauth2/authorize?client_id=787041583580184609&permissions=1644167687254&scope=bot%20applications.commands
+          icon: external
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+<CardGrid>
+    <Card title="Slash-command reference" icon="open-book">
+        Generated directly from the command definitions shipped by the stable bot release.
+    </Card>
+    <Card title="Configuration guides" icon="setting">
+        Set up profiles, Last.fm, privacy preferences, and server command access.
+    </Card>
+</CardGrid>

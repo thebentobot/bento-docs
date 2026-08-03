@@ -1,0 +1,41 @@
+name: Deploy documentation
+
+on:
+    push:
+        branches: [master]
+    repository_dispatch:
+        types: [dotbento_release]
+    workflow_dispatch:
+        inputs:
+            dotbento_ref:
+                description: Stable dotBento tag (for example v1.2.3); blank uses latest
+                required: false
+                type: string
+
+concurrency:
+    group: bento-docs-production
+    cancel-in-progress: false
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        env:
+            DOTBENTO_REF: ${{ github.event.client_payload.ref || inputs.dotbento_ref }}
+        steps:
+            - uses: actions/checkout@v7
+            - uses: actions/setup-node@v7
+              with:
+                  node-version: 24
+                  cache: npm
+            - run: npm ci
+            - run: npm test
+            - run: npm run build
+            - run: npm run check:links
+            - name: Deploy static assets
+              uses: cloudflare/wrangler-action@v4
+              with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  command: deploy

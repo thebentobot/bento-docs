@@ -1,0 +1,85 @@
+---
+import { getCollection, render } from "astro:content";
+import manifest from "../generated/commands.json";
+import type { CommandManifest } from "../lib/command-schema";
+
+interface Props {
+    commandId: string;
+}
+const { commandId } = Astro.props;
+const command = (manifest as CommandManifest).commands.find((item) => item.id === commandId);
+if (!command) throw new Error(`Unknown command: ${commandId}`);
+const note = (await getCollection("commandNotes")).find(
+    (entry) => entry.data.commandId === commandId
+);
+const renderedNote = note ? await render(note) : undefined;
+
+function optionDetails(option: CommandManifest["commands"][number]["options"][number]) {
+    const details = [];
+    if (option.required) details.push("Required");
+    if (option.autocomplete) details.push("Suggestions appear as you type");
+    if (option.choices.length)
+        details.push(`Choices: ${option.choices.map((choice) => choice.name).join(", ")}`);
+    if (option.defaultValue !== undefined && option.defaultValue !== null)
+        details.push(`Default: ${String(option.defaultValue)}`);
+    if (option.minValue !== undefined && option.minValue !== null)
+        details.push(`Minimum: ${option.minValue}`);
+    if (option.maxValue !== undefined && option.maxValue !== null)
+        details.push(`Maximum: ${option.maxValue}`);
+    if (option.minLength !== undefined && option.minLength !== null)
+        details.push(`Minimum length: ${option.minLength}`);
+    if (option.maxLength !== undefined && option.maxLength !== null)
+        details.push(`Maximum length: ${option.maxLength}`);
+    if (option.channelTypes.length) details.push(`Channels: ${option.channelTypes.join(", ")}`);
+    return details;
+}
+---
+
+<div class="command-reference">
+    <p>{command.description}</p>
+    <div class="command-badges">
+        {command.guildOnly && <span>Server only</span>}
+        {command.requiredUserPermissions.map((permission) => <span>Requires {permission}</span>)}
+    </div>
+    {
+        command.options.length > 0 && (
+            <div class="option-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <>
+                                <th>Option</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {command.options.map((option) => (
+                            <tr>
+                                <td>
+                                    <code>{option.name}</code>
+                                    {option.required ? " *" : ""}
+                                </td>
+                                <td>{option.type}</td>
+                                <td>
+                                    {option.description}
+                                    {optionDetails(option).map((detail) => (
+                                        <small>{detail}.</small>
+                                    ))}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+    {
+        renderedNote && (
+            <aside class="command-note">
+                <renderedNote.Content />
+            </aside>
+        )
+    }
+</div>

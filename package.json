@@ -1,0 +1,48 @@
+{
+    "name": "bento-docs",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "engines": {
+        "node": ">=24.18.1"
+    },
+    "scripts": {
+        "sync": "node scripts/sync-commands.mjs",
+        "predev": "npm run sync",
+        "dev": "astro dev",
+        "prebuild": "npm run sync",
+        "build": "astro check && astro build",
+        "check:links": "node scripts/check-links.mjs",
+        "preview": "astro preview",
+        "pretest": "npm run sync",
+        "test": "vitest run",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "deploy": "wrangler deploy"
+    },
+    "dependencies": {
+        "@astrojs/starlight": "0.41.6",
+        "@skyra/discord-components-core": "4.0.2",
+        "astro": "7.1.6",
+        "zod": "4.4.3"
+    },
+    "devDependencies": {
+        "@astrojs/check": "0.9.10",
+        "@astrojs/sitemap": "3.7.3",
+        "@eslint/js": "10.0.1",
+        "@types/node": "25.9.5",
+        "@typescript-eslint/parser": "8.65.0",
+        "eslint": "10.8.0",
+        "eslint-config-prettier": "10.1.8",
+        "eslint-plugin-astro": "3.0.1",
+        "globals": "17.8.0",
+        "prettier": "3.9.6",
+        "prettier-plugin-astro": "0.14.1",
+        "typescript": "6.0.3",
+        "typescript-eslint": "8.65.0",
+        "vitest": "4.1.10",
+        "wrangler": "4.114.0"
+    }
+}
