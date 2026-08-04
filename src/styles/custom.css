@@ -47,7 +47,7 @@
     --sl-color-accent: #eab308;
     --sl-color-accent-high: #fef08a;
     --sl-color-text: var(--sl-color-gray-2);
-    --sl-color-text-accent: #fde047;
+    --sl-color-text-accent: #eab308;
     --sl-color-text-invert: #18181b;
     --sl-color-bg: #000000;
     --sl-color-bg-nav: #09090b;
@@ -75,7 +75,7 @@
     --sl-color-accent: #facc15;
     --sl-color-accent-low: #fef9c3;
     --sl-color-text: var(--sl-color-gray-2);
-    --sl-color-text-accent: #ca8a04;
+    --sl-color-text-accent: #facc15;
     --sl-color-text-invert: #18181b;
     --sl-color-bg: #ffffff;
     --sl-color-bg-nav: #fafafa;
@@ -106,12 +106,15 @@
 
 .hero .actions {
     display: grid;
+    gap: 1rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: min(100%, 28rem);
+    width: min(100%, 30rem);
 }
 
 .hero .actions .sl-link-button {
     justify-content: center;
+    min-height: 4rem;
+    white-space: nowrap;
     width: 100%;
 }
 
