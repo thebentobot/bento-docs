@@ -1,0 +1,18 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended"],
+    "schedule": ["after 6:00am and before 7:00am"],
+    "timezone": "Europe/Copenhagen",
+    "assignees": ["banner4422"],
+    "rangeStrategy": "bump",
+    "packageRules": [
+        {
+            "matchDatasources": ["npm"],
+            "minimumReleaseAge": "3 days"
+        },
+        {
+            "matchManagers": ["github-actions"],
+            "minimumReleaseAge": "3 days"
+        }
+    ]
+}
