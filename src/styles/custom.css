@@ -87,6 +87,23 @@
     --sl-color-hairline-shade: #f4f4f5;
 }
 
+[data-theme="light"] .site-title,
+[data-theme="light"] .social-icons a {
+    color: #eab308;
+}
+
+[data-theme="light"] .social-icons a:hover {
+    color: #ca8a04;
+}
+
+[data-theme="light"] .sl-markdown-content a {
+    color: #eab308;
+}
+
+[data-theme="light"] .sl-markdown-content a:hover {
+    color: #ca8a04;
+}
+
 .site-title img,
 .hero > img {
     border-radius: 9999px;
