@@ -7,12 +7,12 @@
     "rangeStrategy": "bump",
     "packageRules": [
         {
-          "matchDatasources": ["npm"],
-          "minimumReleaseAge": "3 days"
+            "matchDatasources": ["npm"],
+            "minimumReleaseAge": "3 days"
         },
         {
-          "matchManagers": ["github-actions"],
-          "minimumReleaseAge": "3 days"
+            "matchManagers": ["github-actions"],
+            "minimumReleaseAge": "3 days"
         }
-  ]
+    ]
 }
