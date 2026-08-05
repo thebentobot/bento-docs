@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+    createReferenceLink,
     createReferencePage,
     groupCommands,
     validateNoteIds,
@@ -49,6 +50,11 @@ describe("command reference generation", () => {
         ]);
         expect(page).toContain("## `/profile user`");
         expect(page).toContain('<CommandReference commandId="profile:user" />');
+    });
+
+    it("links command groups beneath the reference route", () => {
+        expect(createReferenceLink("about")).toBe("- [About](/reference/about/)");
+        expect(createReferenceLink("general")).toBe("- [General](/reference/general/)");
     });
 });
 
