@@ -29,6 +29,11 @@ export function createReferencePage(group, commands) {
     return `---\ntitle: ${title}\ndescription: ${JSON.stringify(description)}\n---\n\nimport CommandReference from '../../../components/CommandReference.astro';\n\n${sections}\n`;
 }
 
+export function createReferenceLink(group) {
+    const title = group === "general" ? "General" : group.replace(/^./, (c) => c.toUpperCase());
+    return `- [${title}](/reference/${group}/)`;
+}
+
 export function validateRef(ref) {
     if (!stableTag.test(ref))
         throw new Error(`DOTBENTO_REF must be a stable vX.Y.Z tag; received ${ref}`);
@@ -117,9 +122,7 @@ export async function sync() {
     const links = [];
     for (const [group, commands] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
         await writeFile(resolve(reference, `${group}.mdx`), createReferencePage(group, commands));
-        links.push(
-            `- [${group === "general" ? "General" : group.replace(/^./, (c) => c.toUpperCase())}](./${group}/)`
-        );
+        links.push(createReferenceLink(group));
     }
     await writeFile(
         resolve(reference, "index.mdx"),
