@@ -20,42 +20,40 @@ const { kind } = Astro.props;
                 avatar={kind === "profile" ? "/fiji_discord.webp" : "/lewis_discord.webp"}
                 command={kind === "profile" ? "profile user" : "lastfm nowplaying"}
             ></discord-command>
-            {
-                kind === "profile" ? (
-                    <discord-image-attachment
-                        slot="attachments"
-                        url="/Fiji_Spring_Water_profile.webp"
-                        width="480"
-                        height="320"
-                        alt="Example Bento profile card"
-                    />
-                ) : (
-                    <discord-embed
-                        slot="embeds"
-                        color="#e4141e"
-                        author-name="Lewis"
-                        author-image="/lewis_discord.webp"
-                        thumbnail="/brat_fm.webp"
-                    >
-                        <discord-embed-description slot="description">
-                            Now Playing
-                            <>
-                                <br />
-                                <strong>Charli XCX</strong>
-                            </>{" "}
-                            — Talk talk
+            {kind === "profile" ? (
+                <discord-image-attachment
+                    slot="attachments"
+                    url="/Fiji_Spring_Water_profile.webp"
+                    width="480"
+                    height="320"
+                    alt="Example Bento profile card"
+                />
+            ) : (
+                <discord-embed
+                    slot="embeds"
+                    color="#e4141e"
+                    author-name="Lewis"
+                    author-image="/lewis_discord.webp"
+                    thumbnail="/brat_fm.webp"
+                >
+                    <discord-embed-description slot="description">
+                        Now Playing
+                        <>
                             <br />
-                            From the album <strong>BRAT</strong>
-                        </discord-embed-description>
-                        <discord-embed-footer
-                            slot="footer"
-                            footer-image="/lastfm_avatar_twitter.52a5d69a85ac.webp"
-                        >
-                            Powered by last.fm
-                        </discord-embed-footer>
-                    </discord-embed>
-                )
-            }
+                            <strong>Charli XCX</strong>
+                        </>{" "}
+                        — Talk talk
+                        <br />
+                        From the album <strong>BRAT</strong>
+                    </discord-embed-description>
+                    <discord-embed-footer
+                        slot="footer"
+                        footer-image="/lastfm_avatar_twitter.52a5d69a85ac.webp"
+                    >
+                        Powered by last.fm
+                    </discord-embed-footer>
+                </discord-embed>
+            )}
         </discord-message>
     </discord-messages>
 </div>
