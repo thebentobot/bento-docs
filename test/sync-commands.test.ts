@@ -1,8 +1,9 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import {
     createReferenceLink,
     createReferencePage,
     groupCommands,
+    latestStableRef,
     validateNoteIds,
     validateRef,
 } from "../scripts/sync-commands.mjs";
@@ -55,6 +56,47 @@ describe("command reference generation", () => {
     it("links command groups beneath the reference route", () => {
         expect(createReferenceLink("about")).toBe("- [About](/reference/about/)");
         expect(createReferenceLink("general")).toBe("- [General](/reference/general/)");
+    });
+});
+
+describe("release lookup", () => {
+    afterEach(() => {
+        vi.unstubAllEnvs();
+        vi.unstubAllGlobals();
+    });
+
+    it("authenticates release lookup to avoid the anonymous rate limit", async () => {
+        vi.stubEnv("GITHUB_TOKEN", "test-token");
+        const fetch = vi.fn(async (_url: string, options: { headers: Record<string, string> }) =>
+            options.headers.Authorization === "Bearer test-token"
+                ? Response.json({ tag_name: "v2.14.3" })
+                : new Response("API rate limit exceeded", { status: 403 })
+        );
+        vi.stubGlobal("fetch", fetch);
+
+        await expect(latestStableRef()).resolves.toBe("v2.14.3");
+        expect(fetch).toHaveBeenCalledWith(
+            "https://api.github.com/repos/thebentobot/dotBento/releases/latest",
+            expect.objectContaining({
+                headers: expect.objectContaining({ Authorization: "Bearer test-token" }),
+            })
+        );
+    });
+
+    it("supports local release lookup without a token", async () => {
+        vi.stubEnv("GITHUB_TOKEN", "");
+        const fetch = vi.fn().mockResolvedValue(Response.json({ tag_name: "v2.14.3" }));
+        vi.stubGlobal("fetch", fetch);
+
+        await expect(latestStableRef()).resolves.toBe("v2.14.3");
+        expect(fetch.mock.calls[0][1].headers).not.toHaveProperty("Authorization");
+    });
+
+    it("fails when GitHub rejects the release lookup", async () => {
+        vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 403 })));
+        await expect(latestStableRef()).rejects.toThrow(
+            "Could not resolve latest dotBento release (403)"
+        );
     });
 });
 
