@@ -51,13 +51,16 @@ export function validateNoteIds(notes, commandIds) {
     }
 }
 
-async function latestStableRef() {
+export async function latestStableRef() {
     const response = await fetch(
         "https://api.github.com/repos/thebentobot/dotBento/releases/latest",
         {
             headers: {
                 Accept: "application/vnd.github+json",
                 "User-Agent": "bento-docs",
+                ...(process.env.GITHUB_TOKEN
+                    ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+                    : {}),
             },
         }
     );
