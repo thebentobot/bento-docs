@@ -4,7 +4,7 @@
     "private": true,
     "type": "module",
     "engines": {
-        "node": ">=24.22.2"
+        "node": ">=26.13.0"
     },
     "scripts": {
         "sync": "node scripts/sync-commands.mjs",
@@ -32,7 +32,7 @@
         "@astrojs/check": "0.9.12",
         "@astrojs/sitemap": "3.7.4",
         "@eslint/js": "10.0.1",
-        "@types/node": "25.9.9",
+        "@types/node": "26.6.5",
         "@typescript-eslint/parser": "8.72.1",
         "eslint": "10.13.0",
         "eslint-config-prettier": "10.1.8",
